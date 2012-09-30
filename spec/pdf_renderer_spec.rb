@@ -11,26 +11,26 @@ module Payday
     end
 
     describe "#build_pdf" do
-      it "should add a stamp to the pdf if one is given" do
-        invoice = Invoice.new do |i|
-          i.stamp = "Overdue"
-        end
-
-        renderer = Payday::PdfRenderer.new(invoice)
-        renderer.should_receive(:stamp)
-
-        renderer.build_pdf
+      before do
+        @invoice = Invoice.new
       end
 
-      it "shouldn't add a stamp to the pdf if one isn't given" do
-        invoice = Invoice.new do |i|
-          i.stamp = nil
+      describe "stamp rendering" do
+        it "should add a stamp to the pdf if one is given" do
+          @invoice.stamp = "Overdue"
+
+          renderer = Payday::PdfRenderer.new(@invoice)
+          renderer.should_receive(:stamp)
+
+          renderer.build_pdf
         end
 
-        renderer = Payday::PdfRenderer.new(invoice)
-        renderer.should_not_receive(:stamp)
+        it "shouldn't add a stamp to the pdf if one isn't given" do
+          renderer = Payday::PdfRenderer.new(@invoice)
+          renderer.should_not_receive(:stamp)
 
-        renderer.build_pdf
+          renderer.build_pdf
+        end
       end
     end
   end
