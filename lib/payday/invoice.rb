@@ -35,8 +35,8 @@ module Payday
     # The date that payment for this invoice was made
     attr_accessor :paid_at
 
-    # The stamp to put onto the invoice. Can be :overdue or :paid
-    attr_accessor :status_stamp
+    # The stamp to put onto the invoice.
+    attr_accessor :stamp
 
     # Name of the recipient of the payment for the invoice.
     attr_accessor :pay_to
@@ -78,7 +78,6 @@ module Payday
 
     # Extra information to print at the bottom of the invoice.
     attr_accessor :notes
-
 
     # Internal: Sets default values to this instance.
     def apply_defaults
