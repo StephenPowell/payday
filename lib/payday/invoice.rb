@@ -97,5 +97,10 @@ module Payday
       apply_defaults
       yield(self) if block_given?
     end
+
+    # Public: Returns true if the logo is an svg, false otherwise.
+    def is_logo_svg?
+      File.extname(logo) == ".svg"
+    end
   end
 end

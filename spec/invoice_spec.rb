@@ -13,6 +13,24 @@ module Payday
       end
     end
 
+    describe "#is_logo_svg?" do
+      it "should return true if the logo image is an svg" do
+        invoice = Invoice.new do |i|
+          i.logo = "assets/tiger.svg"
+        end
+
+        expect(invoice.is_logo_svg?).to eq(true)
+      end
+
+      it "should return false if the logo image isn't an svg" do
+        invoice = Invoice.new do |i|
+          i.logo = "assets/default_logo.png"
+        end
+
+        expect(invoice.is_logo_svg?).to eq(false)
+      end
+    end
+
     # it "should be able to be initalized with a hash of options" do
     #   i = Invoice.new(:invoice_number => 20, :bill_to => "Here", :ship_to => "There",
     #       :notes => "These are some notes.",

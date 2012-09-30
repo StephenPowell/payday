@@ -28,6 +28,7 @@ module Payday
       pdf.font_size(8)
 
       stamp unless invoice.stamp.nil?
+      pay_to_banner
     end
 
     # Internal: Resets the drawing fill color to black.
@@ -53,6 +54,45 @@ module Payday
       end
 
       reset_fill_color
+    end
+
+    # Internal: Renders the logo and pay_to information.
+    def pay_to_banner
+      logo_offset = 0
+      logo_offset = render_logo unless invoice.logo.nil?
+    end
+
+    # Internal: Renders the logo for the invoice.
+    #
+    # Returns the offset that the logo generated.
+    def render_logo
+      if invoice.is_logo_svg?
+        render_svg_logo
+      else
+        render_raster_logo
+      end
+    end
+
+    # Internal: Renders the logo as an svg image.
+    #
+    # Returns the offset for the logo.
+    def render_svg_logo
+      logo_info = pdf.svg(File.read(invoice.logo), :at => pdf.bounds.top_left,
+                          :width => invoice.logo_width,
+                          :height => invoice.logo_height)
+      logo_info[:height]
+    end
+
+    # Internal: Renders the logo as a raster image.
+    #
+    # Returns the offset for the logo.
+    def render_raster_logo
+      logo_info = pdf.image(invoice.logo, :at => pdf.bounds.top_left,
+                          :width => invoice.logo_width,
+                          :height => invoice.logo_height)
+
+      # Return the offset for the logo
+      logo_info.scaled_height
     end
   end
 end
