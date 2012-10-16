@@ -28,6 +28,7 @@ module Payday
       pdf.font_size(8)
 
       stamp unless invoice.stamp.nil?
+      logo
       pay_to_banner
     end
 
@@ -43,6 +44,16 @@ module Payday
       end
     end
 
+    def cell(text, options = {})
+      pdf.make_cell(text, options)
+    end
+
+    # Internal: Renders a bold cell.
+    def bold_cell(text, options = {})
+      options[:font] = "Helvetica-Bold"
+      cell(text, options)
+    end
+
     # Internal: Prints a red stamp on the invoice, either saying that it's
     # paid or that it's overdue.
     def stamp
@@ -56,10 +67,27 @@ module Payday
       reset_fill_color
     end
 
-    # Internal: Renders the logo and pay_to information.
-    def pay_to_banner
+    # Internal: Renders the logo
+    def logo
       logo_offset = 0
       logo_offset = render_logo unless invoice.logo.nil?
+    end
+
+    # Internal: Renders the pay_to information.
+    def pay_to_banner
+      table_data = []
+      unless invoice.pay_to.nil?
+        table_data << [bold_cell(invoice.pay_to, :size => 12)]
+      end
+
+      unless invoice.pay_to_details.nil?
+        invoice.pay_to_details.lines.each { |line| table_data << [line] }
+
+        table = pdf.make_table(table_data, :cell_style => { :borders => [], :padding => 0 })
+        pdf.bounding_box([pdf.bounds.width - table.width, pdf.bounds.top], :width => table.width, :height => table.height + 5) do
+          table.draw
+        end
+      end
     end
 
     # Internal: Renders the logo for the invoice.

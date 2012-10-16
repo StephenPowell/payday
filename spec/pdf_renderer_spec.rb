@@ -6,8 +6,10 @@ module Payday
       it "should render a test pdf ok" do
         i = Invoice.new do |i|
           i.stamp = "Overdue"
-          i.logo = "assets/default_logo.png"
+          i.logo = "assets/tiger.svg"
           i.logo_height = 100
+          i.pay_to = "Alan Johnson"
+          i.pay_to_details = "321 This Way\nBeverly Hills, CA 90210\nalan@test.com"
         end
 
         PdfRenderer.new(i).render_to_file("tmp/test.pdf")
@@ -37,7 +39,7 @@ module Payday
         end
       end
 
-      describe "company banner rendering" do
+      describe "company logo rendering" do
         it "shouldn't draw a logo if one isn't given" do
           renderer = Payday::PdfRenderer.new(@invoice)
           renderer.should_not_receive(:render_logo)
