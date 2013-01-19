@@ -77,4 +77,3 @@ module Payday
     end
   end
 end
-
