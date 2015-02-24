@@ -4,6 +4,7 @@
 
 * Bumped prawn to 1.3.0 (was 1.0.0)
 * Added prawn-table gem.
+* Bumped prawn-svg to 0.16.1 (was 0.15.0)
 * Bumped money gem to 6.5 (was 6.1.1)
 * Bumped i18n gem to 0.7 (was 0.6.11)
 
