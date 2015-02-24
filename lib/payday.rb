@@ -3,6 +3,7 @@ require "date"
 require "time"
 require "bigdecimal"
 require "prawn"
+require "prawn/table"
 require "prawn-svg"
 require "money"
 
