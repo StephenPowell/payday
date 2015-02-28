@@ -7,6 +7,8 @@
 * Bumped prawn-svg to 0.16.1 (was 0.15.0)
 * Bumped money gem to 6.5 (was 6.1.1)
 * Bumped i18n gem to 0.7 (was 0.6.11)
+* Added ability to configure fonts to allow for internationalization. Fixes 
+  [#36](https://github.com/commondream/payday/issues/36).
 
 ## 1.1.3 (2015-01-02)
 
