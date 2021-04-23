@@ -302,7 +302,7 @@ module Payday
     def self.number_to_currency(number, invoice)
       currency = Money::Currency.wrap(invoice_or_default(invoice, :currency))
       number *= currency.subunit_to_unit
-      number = number.round unless Money.infinite_precision
+      number = number.round unless Money.default_infinite_precision
       Money.new(number, currency).format
     end
 
